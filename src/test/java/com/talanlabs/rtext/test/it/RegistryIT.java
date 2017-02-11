@@ -27,7 +27,8 @@ public class RegistryIT {
 
 	@Test
 	public void testMapRtext() {
-		Assertions.assertThat((Map<String, String>) rtext.fromText("toto:123", new TypeToken<Map<String, String>>() {
+        Assertions.assertThat(rtext.fromText("gaby", String.class)).isEqualTo("gaby");
+        Assertions.assertThat((Map<String, String>) rtext.fromText("toto:123", new TypeToken<Map<String, String>>() {
 		}.getType())).hasSize(1).containsEntry("toto", "123");
 		Assertions.assertThat(
 				(Map<String, String>) rtext.fromText("toto:123,tata:abc", new TypeToken<Map<String, String>>() {
