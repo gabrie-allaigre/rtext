@@ -8,7 +8,7 @@
 </dependency>
 ```
 
-Convertie un text en object
+Convert a text to object
 
 ```java
 RtextConfigurationBuilder builder = RtextConfigurationBuilder.newBuilder();
