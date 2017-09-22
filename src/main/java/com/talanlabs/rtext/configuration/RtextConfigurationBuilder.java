@@ -34,8 +34,8 @@ public class RtextConfigurationBuilder {
         return this;
     }
 
-    public RtextConfigurationBuilder registerTypeHierarchyAdapter(Class<?> type, IRtextTypeAdapter<?> typeAdapter) {
-        rtextConfiguration.typeAdapterFactories.add(new RtextTypeAdapterFactoryAdapter(TypeAdaptersHelper.newTypeHierarchyFactory(String.class, type, (IRtextTypeAdapter) typeAdapter)));
+    public RtextConfigurationBuilder registerTypeHierarchyAdapter(Type type, IRtextTypeAdapter<?> typeAdapter) {
+        rtextConfiguration.typeAdapterFactories.add(new RtextTypeAdapterFactoryAdapter(TypeAdaptersHelper.newTypeHierarchyFactory(TypeToken.of(String.class), TypeToken.of(type), (IRtextTypeAdapter) typeAdapter)));
         return this;
     }
 
