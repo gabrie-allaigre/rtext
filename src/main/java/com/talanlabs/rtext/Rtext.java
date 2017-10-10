@@ -2,21 +2,7 @@ package com.talanlabs.rtext;
 
 import com.google.common.primitives.Primitives;
 import com.google.common.reflect.TypeToken;
-import com.talanlabs.rtext.bind.internal.BigDecimalTypeAdapter;
-import com.talanlabs.rtext.bind.internal.BigIntegerTypeAdapter;
-import com.talanlabs.rtext.bind.internal.BooleanTypeAdapter;
-import com.talanlabs.rtext.bind.internal.DateTypeAdapter;
-import com.talanlabs.rtext.bind.internal.DoubleTypeAdapter;
-import com.talanlabs.rtext.bind.internal.EnumTypeAdapter;
-import com.talanlabs.rtext.bind.internal.FloatTypeAdapter;
-import com.talanlabs.rtext.bind.internal.IntegerTypeAdapter;
-import com.talanlabs.rtext.bind.internal.LocalDateTimeTypeAdapter;
-import com.talanlabs.rtext.bind.internal.LocalDateTypeAdapter;
-import com.talanlabs.rtext.bind.internal.LocalTimeTypeAdapter;
-import com.talanlabs.rtext.bind.internal.LongTypeAdapter;
-import com.talanlabs.rtext.bind.internal.RtextTypeAdapters;
-import com.talanlabs.rtext.bind.internal.StringTypeAdapter;
-import com.talanlabs.rtext.bind.internal.ToObjectTypeAdapter;
+import com.talanlabs.rtext.bind.internal.*;
 import com.talanlabs.rtext.configuration.IRtextConfiguration;
 import com.talanlabs.typeadapters.TypeAdaptersDelegate;
 
@@ -55,6 +41,10 @@ public class Rtext {
         factories.add(LocalTimeTypeAdapter.FACTORY);
         factories.add(LocalDateTimeTypeAdapter.FACTORY);
         factories.add(EnumTypeAdapter.FACTORY);
+        factories.add(ArrayTypeAdapter.FACTORY);
+        factories.add(ListTypeAdapter.FACTORY);
+        factories.add(SetTypeAdapter.FACTORY);
+        factories.add(MapTypeAdapter.FACTORY);
         typeAdaptersDelegate = new TypeAdaptersDelegate<>(this, factories);
     }
 
