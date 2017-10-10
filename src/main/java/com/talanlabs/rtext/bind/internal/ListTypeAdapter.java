@@ -1,12 +1,15 @@
 package com.talanlabs.rtext.bind.internal;
 
+import com.google.common.base.Splitter;
 import com.google.common.reflect.TypeToken;
 import com.talanlabs.rtext.IRtextTypeAdapter;
 import com.talanlabs.rtext.IRtextTypeAdapterFactory;
 import com.talanlabs.rtext.Rtext;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ListTypeAdapter<E> implements IRtextTypeAdapter<List<E>> {
 
@@ -29,18 +32,12 @@ public class ListTypeAdapter<E> implements IRtextTypeAdapter<List<E>> {
 
     @Override
     public List<E> toDst(String s) {
-        if (s == null) {
+        if (StringUtils.isEmpty(s)) {
             return new ArrayList<>();
         }
 
         IRtextTypeAdapter<E> componentTypeAdapter = rtext.getTypeAdapter(typeToken);
-
-        String[] ss = s.split(separator);
-        List<E> cs = new ArrayList<>(ss.length);
-        for (int i = 0; i < ss.length; i++) {
-            cs.add(componentTypeAdapter.toDst(ss[i]));
-        }
-        return cs;
+        return Splitter.on(separator).omitEmptyStrings().splitToList(s).stream().map(componentTypeAdapter::toDst).collect(Collectors.toList());
     }
 
     public static class ListTypeAdapterFactory implements IRtextTypeAdapterFactory {

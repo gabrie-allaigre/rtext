@@ -5,6 +5,7 @@ import com.google.common.reflect.TypeToken;
 import com.talanlabs.rtext.IRtextTypeAdapter;
 import com.talanlabs.rtext.IRtextTypeAdapterFactory;
 import com.talanlabs.rtext.Rtext;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,7 +37,7 @@ public class MapTypeAdapter<E, F> implements IRtextTypeAdapter<Map<E, F>> {
 
     @Override
     public Map<E, F> toDst(String s) {
-        if (s == null) {
+        if (StringUtils.isEmpty(s)) {
             return new HashMap<>();
         }
 

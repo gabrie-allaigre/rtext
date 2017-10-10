@@ -1,12 +1,15 @@
 package com.talanlabs.rtext.bind.internal;
 
+import com.google.common.base.Splitter;
 import com.google.common.reflect.TypeToken;
 import com.talanlabs.rtext.IRtextTypeAdapter;
 import com.talanlabs.rtext.IRtextTypeAdapterFactory;
 import com.talanlabs.rtext.Rtext;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class SetTypeAdapter<E> implements IRtextTypeAdapter<Set<E>> {
 
@@ -29,18 +32,13 @@ public class SetTypeAdapter<E> implements IRtextTypeAdapter<Set<E>> {
 
     @Override
     public Set<E> toDst(String s) {
-        if (s == null) {
+        if (StringUtils.isEmpty(s)) {
             return new HashSet<>();
         }
 
         IRtextTypeAdapter<E> componentTypeAdapter = rtext.getTypeAdapter(typeToken);
 
-        String[] ss = s.split(separator);
-        Set<E> cs = new HashSet<>(ss.length);
-        for (int i = 0; i < ss.length; i++) {
-            cs.add(componentTypeAdapter.toDst(ss[i]));
-        }
-        return cs;
+        return Splitter.on(separator).omitEmptyStrings().splitToList(s).stream().map(componentTypeAdapter::toDst).collect(Collectors.toSet());
     }
 
     public static class SetTypeAdapterFactory implements IRtextTypeAdapterFactory {

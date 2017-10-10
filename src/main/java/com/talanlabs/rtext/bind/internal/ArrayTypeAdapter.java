@@ -1,9 +1,11 @@
 package com.talanlabs.rtext.bind.internal;
 
+import com.google.common.base.Splitter;
 import com.google.common.reflect.TypeToken;
 import com.talanlabs.rtext.IRtextTypeAdapter;
 import com.talanlabs.rtext.IRtextTypeAdapterFactory;
 import com.talanlabs.rtext.Rtext;
+import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Array;
 
@@ -28,18 +30,12 @@ public class ArrayTypeAdapter<E> implements IRtextTypeAdapter<E[]> {
 
     @Override
     public E[] toDst(String s) {
-        if (s == null) {
+        if (StringUtils.isEmpty(s)) {
             return (E[]) Array.newInstance(typeToken.getRawType(), 0);
         }
 
         IRtextTypeAdapter<E> componentTypeAdapter = rtext.getTypeAdapter(typeToken);
-
-        String[] ss = s.split(separator);
-        E[] array = (E[]) Array.newInstance(typeToken.getRawType(), ss.length);
-        for (int i = 0; i < ss.length; i++) {
-            array[i] = componentTypeAdapter.toDst(ss[i]);
-        }
-        return array;
+        return Splitter.on(separator).omitEmptyStrings().splitToList(s).stream().map(componentTypeAdapter::toDst).toArray(i -> (E[]) Array.newInstance(typeToken.getRawType(), i));
     }
 
     public static class ArrayTypeAdapterFactory implements IRtextTypeAdapterFactory {

@@ -23,6 +23,10 @@ public class CollectionRtextIT {
 
     @Test
     public void testArrayRtext() {
+        Assertions.assertThat(rtext.<String[]>fromText(null, new TypeToken<String[]>() {
+        }.getType())).isNull();
+        Assertions.assertThat(rtext.<String[]>fromText("", new TypeToken<String[]>() {
+        }.getType())).isEmpty();
         Assertions.assertThat(rtext.<String[]>fromText("gaby", new TypeToken<String[]>() {
         }.getType())).containsExactly("gaby");
         Assertions.assertThat(rtext.<String[]>fromText("gaby,sandra", new TypeToken<String[]>() {
@@ -35,6 +39,10 @@ public class CollectionRtextIT {
 
     @Test
     public void testListRtext() {
+        Assertions.assertThat(rtext.<List<String>>fromText(null, new TypeToken<List<String>>() {
+        }.getType())).isNull();
+        Assertions.assertThat(rtext.<List<String>>fromText("", new TypeToken<List<String>>() {
+        }.getType())).isEmpty();
         Assertions.assertThat(rtext.<List<String>>fromText("gaby", new TypeToken<List<String>>() {
         }.getType())).containsExactly("gaby");
         Assertions.assertThat(rtext.<List<String>>fromText("gaby,sandra", new TypeToken<List<String>>() {
@@ -47,6 +55,10 @@ public class CollectionRtextIT {
 
     @Test
     public void testSetRtext() {
+        Assertions.assertThat(rtext.<Set<String>>fromText(null, new TypeToken<Set<String>>() {
+        }.getType())).isNull();
+        Assertions.assertThat(rtext.<Set<String>>fromText("", new TypeToken<Set<String>>() {
+        }.getType())).isEmpty();
         Assertions.assertThat(rtext.<Set<String>>fromText("gaby", new TypeToken<Set<String>>() {
         }.getType())).containsExactly("gaby");
         Assertions.assertThat(rtext.<Set<String>>fromText("gaby,sandra", new TypeToken<Set<String>>() {
